@@ -29,6 +29,7 @@
 char z,k;
 char temp=0;
 unsigned char datachar[9];
+unsigned char spiCmd;
 unsigned char gaugeString[8];
 unsigned char lightString[2];
 unsigned char vfdString[8];
@@ -57,48 +58,38 @@ static esp_err_t spi_set_dc(uint8_t dc)
 }
 
 // Write an 8-bit cmd
-static esp_err_t spi_write_cmd(uint8_t data)
+static esp_err_t spi_write_cmd(uint16_t bits, uint8_t cmdBits)
 {
-    uint32_t buf = data << 24; // In order to improve the transmission efficiency, it is recommended that the external incoming data is (uint32_t *) type data, do not use other type data.
+	int ii=0;
+    uint32_t buf[2] = {datachar[7] << 24 + datachar[6]<<16+datachar[5]<<8+datachar[4],
+    					datachar[3] << 24 + datachar[2]<<16+datachar[1]<<8+datachar[0]}; // In order to improve the transmission efficiency, it is recommended that the external incoming data is (uint32_t *) type data, do not use other type data.
     spi_trans_t trans = {0};
+    trans.cmd=spiCmd;
     trans.mosi = &buf;
-    trans.bits.mosi = 8;
+    trans.bits.mosi = bits;
     spi_set_dc(0);
     spi_trans(HSPI_HOST, &trans);
     return ESP_OK;
 }
 
 
-//******************
-//  VFDData PORTB |= B00000001;
-//GL DATA PORTD |= B00100000;
-
-static esp_err_t pulseLoad(uint8_t bytes)
-{
-	int ii=0;
-	for(ii=bytes-1;ii>=0;ii--){
-		spi_write_cmd(datachar[ii]);
-	}
-	return ESP_OK;
-}
-
 //-_-_-_-_-_-_-_-_ Send Dimming Info to VFD -_-_-_-_-_-_-
 void sendVFDDimming()
 {
 	//Load SPI data
 	//1,1,1,1,datachar
-	datachar[1]=0x0F;
+	spiCmd=0x0F;
 	datachar[0]=vfdDimming;
 
 	//handle clock selection/cs
 
-	pulseLoad(2);
+	spi_write_cmd(8,4);
 }
 
 void senddispToVFD(void){
 	//10
 	//Handle the clock enable to the vfd
-	datachar[8]=0x02;
+	spiCmd=0x02;
 	datachar[7]=vfdString[0];
 	datachar[6]=vfdString[1];
 	datachar[5]=vfdString[2];
@@ -108,8 +99,8 @@ void senddispToVFD(void){
 	datachar[1]=vfdString[6];
 	datachar[0]=vfdString[7];
 
-	pulseLoad(9);
-	latchTrigger=9;
+	spi_write_cmd(64,2);
+	latchTrigger=8;
 }
 
 //Pulse the Latch for Lights
@@ -155,11 +146,11 @@ void checkForCSLatchTrigger(void){
 void sendToLights()
 {
 
-	datachar[1]=lightString[0] & 0x0F;
+	spiCmd=lightString[0] & 0x0F;
 	datachar[0]=lightString[1];
 
-	pulseLoad(2);
-	latchTrigger=2;
+	spi_write_cmd(8,4);
+	latchTrigger=1;
 }
 
 //SPI send to Gauges
@@ -167,15 +158,15 @@ void sendToGauges()
 {
 	int z;
 	//PORTD |= B10000000;							//Chip select High
-	for (z=0;z<8;z++)							//there will be (4) 10 bit xfers
-	{
-		datachar[7-z]=gaugeString[z] & 0x03;
-		z++;
-		datachar[7-z]=gaugeString[z];
-	}
+	//there will be (4) 10 bit xfers,pack the data
+	datachar[4]=gaugeString[0]<<6+gaugeString[1]>>2;
+	datachar[3]=gaugeString[1]<<6+gaugeString[2]<<4+gaugeString[3]>>4;
+	datachar[2]=gaugeString[3]<<4+gaugeString[4]<<2+gaugeString[5]>>6;
+	datachar[1]=gaugeString[5]<<2+gaugeString[6]&0x03;
+	datachar[0]=gaugeString[7];
 	gaugeCS(1);	//set the chip select high
-	gaugeCSTrigger=8;
-	pulseLoad(8);
+	gaugeCSTrigger=5;
+	spi_write_cmd(40,0);
 }
 
 
