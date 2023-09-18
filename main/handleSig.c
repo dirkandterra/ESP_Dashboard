@@ -60,9 +60,9 @@ static esp_err_t spi_set_dc(uint8_t dc)
 // Write an 8-bit cmd
 static esp_err_t spi_write_cmd(uint16_t bits, uint8_t cmdBits)
 {
-	int ii=0;
-    uint32_t buf[2] = {datachar[7] << 24 + datachar[6]<<16+datachar[5]<<8+datachar[4],
-    					datachar[3] << 24 + datachar[2]<<16+datachar[1]<<8+datachar[0]}; // In order to improve the transmission efficiency, it is recommended that the external incoming data is (uint32_t *) type data, do not use other type data.
+    uint32_t buf[2];
+    buf[1] = (datachar[7] << 24) + (datachar[6]<<16)+(datachar[5]<<8)+datachar[4];
+    buf[0] = (datachar[3] << 24) + (datachar[2]<<16)+(datachar[1]<<8)+datachar[0]; // In order to improve the transmission efficiency, it is recommended that the external incoming data is (uint32_t *) type data, do not use other type data.
     spi_trans_t trans = {0};
     trans.cmd=spiCmd;
     trans.mosi = &buf;
@@ -156,13 +156,12 @@ void sendToLights()
 //SPI send to Gauges
 void sendToGauges()
 {
-	int z;
 	//PORTD |= B10000000;							//Chip select High
 	//there will be (4) 10 bit xfers,pack the data
-	datachar[4]=gaugeString[0]<<6+gaugeString[1]>>2;
-	datachar[3]=gaugeString[1]<<6+gaugeString[2]<<4+gaugeString[3]>>4;
-	datachar[2]=gaugeString[3]<<4+gaugeString[4]<<2+gaugeString[5]>>6;
-	datachar[1]=gaugeString[5]<<2+gaugeString[6]&0x03;
+	datachar[4]=(gaugeString[0]<<6)+(gaugeString[1]>>2);
+	datachar[3]=(gaugeString[1]<<6)+(gaugeString[2]<<4)+(gaugeString[3]>>4);
+	datachar[2]=(gaugeString[3]<<4)+(gaugeString[4]<<2)+(gaugeString[5]>>6);
+	datachar[1]=(gaugeString[5]<<2)+(gaugeString[6]&0x03);
 	datachar[0]=gaugeString[7];
 	gaugeCS(1);	//set the chip select high
 	gaugeCSTrigger=5;
