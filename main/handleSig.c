@@ -29,7 +29,7 @@
 char z,k;
 char temp=0;
 unsigned char datachar[9];
-unsigned char spiCmd;
+uint16_t spiCmd;
 unsigned char gaugeString[8];
 unsigned char lightString[2];
 unsigned char vfdString[8];
@@ -61,11 +61,14 @@ static esp_err_t spi_set_dc(uint8_t dc)
 static esp_err_t spi_write_cmd(uint16_t bits, uint8_t cmdBits)
 {
     uint32_t buf[2];
+    uint16_t cmd[1];
+    cmd[0] = spiCmd<<(16-cmdBits);
     buf[1] = (datachar[7] << 24) + (datachar[6]<<16)+(datachar[5]<<8)+datachar[4];
     buf[0] = (datachar[3] << 24) + (datachar[2]<<16)+(datachar[1]<<8)+datachar[0]; // In order to improve the transmission efficiency, it is recommended that the external incoming data is (uint32_t *) type data, do not use other type data.
     spi_trans_t trans = {0};
-    trans.cmd=spiCmd;
-    trans.mosi = &buf;
+    trans.cmd=cmd;
+    trans.bits.cmd=cmdBits;
+    trans.mosi = buf;
     trans.bits.mosi = bits;
     spi_set_dc(0);
     spi_trans(HSPI_HOST, &trans);
