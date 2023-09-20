@@ -8,10 +8,12 @@
 #include "handleSig.h"
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 #include "esp_attr.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
+#include "driver/uart.h"
 
 #include "esp8266/gpio_struct.h"
 #include "esp8266/spi_struct.h"
@@ -21,6 +23,8 @@
 
 #include "driver/gpio.h"
 #include "driver/spi.h"
+
+#include "rs232Handler.h"
 
 #define LATCH_PIN 4
 #define GAUGE_CS_PIN 5
@@ -161,7 +165,7 @@ void sendToLights()
 //SPI send to Gauges
 void sendToGauges()
 {
-	  ESP_LOGI(TAG, "Data: %2x %2x %2x %2x", gaugeString[0], gaugeString[1], gaugeString[2], gaugeString[3]);
+	  if(SPIDEBUG){ESP_LOGI(TAG, "Data: %2x %2x %2x %2x", gaugeString[0], gaugeString[1], gaugeString[2], gaugeString[3]);}
 	//PORTD |= B10000000;							//Chip select High
 	//there will be (4) 10 bit xfers,pack the data
 	datachar[4]=(gaugeString[0]<<6)+(gaugeString[1]>>2);

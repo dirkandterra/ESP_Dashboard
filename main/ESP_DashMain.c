@@ -24,6 +24,7 @@
 #include "handleSig.h"
 #include "GandL.h"
 #include "IntrVFD.h"
+#include "rs232Handler.h"
 
 static const char *TAG = "ESP_Dash";
 
@@ -35,7 +36,7 @@ static void IRAM_ATTR spi_event_callback(int event, void *arg)
         }
         break;
         case SPI_TRANS_START_EVENT: {
-        	ESP_LOGI(TAG, "Callback %d",getDCLevel());
+        	if(SPIDEBUG){ESP_LOGI(TAG, "Callback %d",getDCLevel());}
             gpio_set_level(OLED_DC_GPIO, getDCLevel());
             checkForCSLatchTrigger();			//Will trigger latch or cs high/low if needed
         }
@@ -61,9 +62,20 @@ void resetDashboard(void){
     sendInfo(G_Lights,0);
 }
 
+static void IRAM_ATTR dash_periodic_task(void* arg)
+{
+	int x=0;
+	while (1) {
+		if(SPIDEBUG){ESP_LOGI(TAG, "sent %d", x);}
+		sendVFDDimming();
+		vTaskDelay(1000 / portTICK_RATE_MS);
+		updateGuages_Lights();
+		x++;
+	}
+}
+
 void app_main(void)
 {
-    uint8_t x = 0;
 
     ESP_LOGI(TAG, "init gpio");
     gpio_config_t io_conf;
@@ -100,11 +112,10 @@ void app_main(void)
 
     //ESP_LOGI(TAG, "init clear");
     resetDashboard();
-    while (1) {
-    	ESP_LOGI(TAG, "sent %d", x);
-    	sendVFDDimming();
-    	spi_delay_us(1000000);
-    	updateGuages_Lights();
-        x++;
-    }
+    rs232Init();
+
+    // Create a task to handler UART event from ISR
+     xTaskCreate(uart_event_task, "uart_event_task", 2048, NULL, 12, NULL);
+     xTaskCreate(dash_periodic_task, "dashboard_task", 2048, NULL, 4, NULL);
+
 }
