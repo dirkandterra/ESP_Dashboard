@@ -42,16 +42,14 @@ static uint8_t commandLen=0;
 uint8_t SPIDEBUG=0;
 
 void charDecoder(){
-	char printarray[20];
-
 	if(commandLen<2){
 		switch(CommandBuff[0]){
 		case 's':
 			SPIDEBUG=!SPIDEBUG;
 			if(SPIDEBUG){
-				uart_write_bytes(EX_UART_NUM, "SPI Debug: On\r\n\0", 15);
+				uart_write_bytes(EX_UART_NUM, "SPI Debug: On\r\n", 15);
 			}else{
-				uart_write_bytes(EX_UART_NUM, "SPI Debug: Off\r\n\0", 16);
+				uart_write_bytes(EX_UART_NUM, "SPI Debug: Off\r\n", 16);
 			}
 			break;
 		default:

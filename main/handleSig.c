@@ -99,14 +99,14 @@ void senddispToVFD(void){
 	//10
 	//Handle the clock enable to the vfd
 	spiCmd=0xC0;		//always shift to msb on spiCmd
-	datachar[7]=vfdString[0];
-	datachar[6]=vfdString[1];
-	datachar[5]=vfdString[2];
-	datachar[4]=vfdString[3];
-	datachar[3]=vfdString[4];
-	datachar[2]=vfdString[5];
-	datachar[1]=vfdString[6];
-	datachar[0]=vfdString[7];
+	datachar[0]=vfdString[0];
+	datachar[1]=vfdString[1];
+	datachar[2]=vfdString[2];
+	datachar[3]=vfdString[3];
+	datachar[4]=vfdString[4];
+	datachar[5]=vfdString[5];
+	datachar[6]=vfdString[6];
+	datachar[7]=vfdString[7];
 
 	spi_write_cmd(64,2);
 	latchTrigger=8;
@@ -168,11 +168,11 @@ void sendToGauges()
 	  if(SPIDEBUG){ESP_LOGI(TAG, "Data: %2x %2x %2x %2x", gaugeString[0], gaugeString[1], gaugeString[2], gaugeString[3]);}
 	//PORTD |= B10000000;							//Chip select High
 	//there will be (4) 10 bit xfers,pack the data
-	datachar[4]=(gaugeString[0]<<6)+(gaugeString[1]>>2);
-	datachar[3]=(gaugeString[1]<<6)+(gaugeString[2]<<4)+(gaugeString[3]>>4);
+	datachar[0]=(gaugeString[0]<<6)+(gaugeString[1]>>2);
+	datachar[1]=(gaugeString[1]<<6)+(gaugeString[2]<<4)+(gaugeString[3]>>4);
 	datachar[2]=(gaugeString[3]<<4)+(gaugeString[4]<<2)+(gaugeString[5]>>6);
-	datachar[1]=(gaugeString[5]<<2)+(gaugeString[6]&0x03);
-	datachar[0]=gaugeString[7];
+	datachar[3]=(gaugeString[5]<<2)+(gaugeString[6]&0x03);
+	datachar[4]=gaugeString[7];
 	gaugeCS(1);	//set the chip select high
 	gaugeCSTrigger=5;
 	spi_write_cmd(40,0);
