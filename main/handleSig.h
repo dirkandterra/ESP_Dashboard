@@ -16,6 +16,11 @@
 #define OLED_RST_GPIO    15
 #define OLED_PIN_SEL  (1ULL<<OLED_DC_GPIO) | (1ULL<<OLED_RST_GPIO)
 
+#define LATCH_PIN 4
+#define GAUGE_CS_PIN 5
+#define VFD_LATCH_PIN 2
+#define GPIO_OUTPUT_PIN_SEL  ((1ULL<<LATCH_PIN) | (1ULL<<GAUGE_CS_PIN))
+
 esp_err_t spi_delay_us(uint32_t time);
 
 void senddispToVFD(void);
@@ -26,6 +31,7 @@ void pulseLLatch(void);
 void pulseGLClk(void);
 void dashDelay(char);
 uint8_t getDCLevel(void);
+void init_GPIO(void);
 
 
 void sendToGauges(void);

@@ -1,9 +1,9 @@
 libsodium/src/libsodium/crypto_hash/sha256/hash_sha256.o: \
- C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/crypto_hash/sha256/hash_sha256.c \
- C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/crypto_hash_sha256.h \
- C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/export.h
+ C:/msys32/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/crypto_hash/sha256/hash_sha256.c \
+ C:/msys32/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/crypto_hash_sha256.h \
+ C:/msys32/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/export.h
 
-C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/crypto_hash_sha256.h:
+C:/msys32/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/crypto_hash_sha256.h:
 
-C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/export.h:
-/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/crypto_hash/sha256/hash_sha256.c:
+C:/msys32/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/export.h:
+/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/crypto_hash/sha256/hash_sha256.c:

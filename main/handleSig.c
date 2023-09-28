@@ -26,10 +26,6 @@
 
 #include "rs232Handler.h"
 
-#define LATCH_PIN 4
-#define GAUGE_CS_PIN 5
-#define VFD_LATCH_PIN 2
-
 char z,k;
 char temp=0;
 unsigned char datachar[9];
@@ -46,6 +42,26 @@ uint8_t vfdLatchTrigger=0;
 static uint8_t spi_dc_level = 0;
 
 static const char *TAG="handleSig";
+
+void init_GPIO(void){
+	gpio_config_t io_conf;
+    io_conf.intr_type = GPIO_INTR_DISABLE;    	//disable interrupt
+    io_conf.mode = GPIO_MODE_OUTPUT;    		//set as output mode
+	io_conf.pin_bit_mask = GPIO_OUTPUT_PIN_SEL; //bit mask of the pins that you want to set,e.g.GPIO15/16
+	io_conf.pull_down_en = 0;					//disable pull-down mode
+    io_conf.pull_up_en = 0;						//disable pull-up mode    
+    gpio_config(&io_conf);						//configure GPIO with the given settings
+	gpio_set_level(LATCH_PIN, 0);
+	gpio_set_level(GAUGE_CS_PIN, 0);
+	
+    io_conf.intr_type = GPIO_INTR_DISABLE;
+    io_conf.mode = GPIO_MODE_OUTPUT;
+    io_conf.pin_bit_mask = OLED_PIN_SEL;
+    io_conf.pull_down_en = 0;
+    io_conf.pull_up_en = 1;
+    gpio_config(&io_conf);
+    gpio_set_level(OLED_RST_GPIO, 1);
+}
 
 esp_err_t spi_delay_us(uint32_t time)
 {
@@ -93,6 +109,7 @@ void sendVFDDimming()
 	//handle clock selection/cs
 
 	spi_write_cmd(8,4);
+	vfdLatchTrigger=1;
 }
 
 void senddispToVFD(void){
@@ -109,7 +126,7 @@ void senddispToVFD(void){
 	datachar[7]=vfdString[7];
 
 	spi_write_cmd(64,2);
-	latchTrigger=8;
+	vfdLatchTrigger=2;
 }
 
 //Pulse the Latch for Lights
@@ -135,6 +152,7 @@ void gaugeCS(uint8_t level){
 void checkForCSLatchTrigger(void){
 	if(latchTrigger>0){
 		latchTrigger--;
+		if(SPIDEBUG){ESP_LOGI(TAG, "Light Latch: %2x", latchTrigger);}
 		if(latchTrigger==0){
 			pulseLLatch();
 		}
@@ -174,7 +192,7 @@ void sendToGauges()
 	datachar[3]=(gaugeString[5]<<2)+(gaugeString[6]&0x03);
 	datachar[4]=gaugeString[7];
 	gaugeCS(1);	//set the chip select high
-	gaugeCSTrigger=5;
+	gaugeCSTrigger=1;
 	spi_write_cmd(40,0);
 }
 

@@ -38,11 +38,10 @@ static void IRAM_ATTR spi_event_callback(int event, void *arg)
         case SPI_TRANS_START_EVENT: {
         	if(SPIDEBUG){ESP_LOGI(TAG, "Callback %d",getDCLevel());}
             gpio_set_level(OLED_DC_GPIO, getDCLevel());
-            checkForCSLatchTrigger();			//Will trigger latch or cs high/low if needed
         }
         break;
         case SPI_TRANS_DONE_EVENT: {
-
+			checkForCSLatchTrigger();			//Will trigger latch or cs high/low if needed
         }
         break;
         case SPI_DEINIT_EVENT: {
@@ -66,8 +65,11 @@ static void IRAM_ATTR dash_periodic_task(void* arg)
 {
 	int x=0;
 	while (1) {
+		sendInfo(0, 200);
+		sendInfo(1, 500);
+		sendInfo(4, 0xCC);
 		if(SPIDEBUG){ESP_LOGI(TAG, "sent %d", x);}
-		sendVFDDimming();
+		//sendVFDDimming();
 		vTaskDelay(1000 / portTICK_RATE_MS);
 		updateGuages_Lights();
 		x++;
@@ -78,14 +80,7 @@ void app_main(void)
 {
 
     ESP_LOGI(TAG, "init gpio");
-    gpio_config_t io_conf;
-    io_conf.intr_type = GPIO_INTR_DISABLE;
-    io_conf.mode = GPIO_MODE_OUTPUT;
-    io_conf.pin_bit_mask = OLED_PIN_SEL;
-    io_conf.pull_down_en = 0;
-    io_conf.pull_up_en = 1;
-    gpio_config(&io_conf);
-    gpio_set_level(OLED_RST_GPIO, 1);
+	init_GPIO();
     ESP_LOGI(TAG, "init hspi");
     spi_config_t spi_config;
     // Load default interface parameters
@@ -111,7 +106,7 @@ void app_main(void)
     spi_init(HSPI_HOST, &spi_config);
 
     //ESP_LOGI(TAG, "init clear");
-    resetDashboard();
+    //resetDashboard();
     rs232Init();
 
     // Create a task to handler UART event from ISR
