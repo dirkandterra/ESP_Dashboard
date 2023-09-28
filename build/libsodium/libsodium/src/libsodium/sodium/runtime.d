@@ -1,12 +1,12 @@
 libsodium/src/libsodium/sodium/runtime.o: \
- C:/msys32/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/sodium/runtime.c \
- C:/msys32/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/private/common.h \
- C:/msys32/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/runtime.h \
- C:/msys32/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/export.h
+ C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/sodium/runtime.c \
+ C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/private/common.h \
+ C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/runtime.h \
+ C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/export.h
 
-C:/msys32/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/private/common.h:
+C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/private/common.h:
 
-C:/msys32/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/runtime.h:
+C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/runtime.h:
 
-C:/msys32/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/export.h:
-/home/dirkr/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/sodium/runtime.c:
+C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/include/sodium/export.h:
+/home/Ricker/esp/ESP8266_RTOS_SDK/components/libsodium/libsodium/src/libsodium/sodium/runtime.c:

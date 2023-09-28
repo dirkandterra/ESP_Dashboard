@@ -8,6 +8,8 @@
 */
 #define CONFIG_LOG_DEFAULT_LEVEL 3
 #include <stdio.h>
+#include <stdlib.h>
+#include "sdkconfig.h"
 #include "esp_attr.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
