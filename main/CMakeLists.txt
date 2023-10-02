@@ -1,3 +1,3 @@
-set(COMPONENT_SRCS "spi_oled_example_main.c")
+set(COMPONENT_SRCS "ESP_Dashboard.c")
 
 register_component()
