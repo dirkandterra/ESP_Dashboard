@@ -107,7 +107,7 @@ void senddispToVFD(void){
 	datachar[7]=vfdString[7];
 
 	spi_write_cmd(64,2);
-	pulseVLatch_NotCLKEN(1);
+	pulseVLatch_NotCLKEN(0);
 	vfdLatchTrigger=2;
 }
 
