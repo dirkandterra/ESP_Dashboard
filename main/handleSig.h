@@ -12,14 +12,10 @@
 #include "esp_attr.h"
 #include "esp_err.h"
 
-#define OLED_DC_GPIO     12
-#define OLED_RST_GPIO    15
-#define OLED_PIN_SEL  (1ULL<<OLED_DC_GPIO) | (1ULL<<OLED_RST_GPIO)
-
-#define LATCH_PIN 4
-#define GAUGE_CS_PIN 5
-#define VFD_LATCH_PIN 2
-#define GPIO_OUTPUT_PIN_SEL  ((1ULL<<LATCH_PIN) | (1ULL<<GAUGE_CS_PIN))
+#define LATCH_PIN 12
+#define GAUGE_CS_PIN 16
+#define VFD_LATCH_CLKEN_PIN 2
+#define GPIO_OUTPUT_PIN_SEL  ((1ULL<<LATCH_PIN) | (1ULL<<GAUGE_CS_PIN)| (1ULL<<VFD_LATCH_CLKEN_PIN))
 
 esp_err_t spi_delay_us(uint32_t time);
 

@@ -23,26 +23,26 @@
 							<builder id="cdt.managedbuild.builder.gnu.cross.619666957" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.2101945132" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.801539799" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\esp8266\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\xtensa-lx106-elf\xtensa-lx106-elf\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\esp_common\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\freertos\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\log\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\lwip\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\lwip\lwip\src\include\&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\mqtt\esp-mqtt\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESP_Dashboard/main}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\xtensa-lx106-elf\xtensa-lx106-elf\include\sys&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${XTENSA_PATH}\xtensa-lx106-elf\include\sys&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${XTENSA_PATH}\xtensa-lx106-elf\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\esp8266\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\esp_common\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\freertos\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\lwip\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\log\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\mqtt\esp-mqtt\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\lwip\lwip\src\include\&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1494430378" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.compiler.95373839" name="Cross G++ Compiler" superClass="cdt.managedbuild.tool.gnu.cross.cpp.compiler">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.264912821" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\lwip\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\lwip\lwip\src\include\&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\mqtt\esp-mqtt\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESP_Dashboard/main}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\xtensa-lx106-elf\xtensa-lx106-elf\include\sys&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\lwip\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\lwip\lwip\src\include\&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\mqtt\esp-mqtt\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${XTENSA_PATH}\xtensa-lx106-elf\include\sys&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1757767740" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
@@ -56,16 +56,16 @@
 							<tool id="cdt.managedbuild.tool.gnu.cross.archiver.254556223" name="Cross GCC Archiver" superClass="cdt.managedbuild.tool.gnu.cross.archiver"/>
 							<tool id="cdt.managedbuild.tool.gnu.cross.assembler.551676289" name="Cross GCC Assembler" superClass="cdt.managedbuild.tool.gnu.cross.assembler">
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.both.asm.option.include.paths.1000313335" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\esp8266\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\xtensa-lx106-elf\xtensa-lx106-elf\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\esp_common\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\freertos\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\log\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\lwip\lwip\src\include\&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\ESP8266_RTOS_SDK\components\mqtt\esp-mqtt\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ESP_Dashboard/main}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;C:\msys32\home\Ricker\esp\xtensa-lx106-elf\xtensa-lx106-elf\include\sys&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\esp8266\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${XTENSA_PATH}\xtensa-lx106-elf\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\esp_common\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\freertos\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\log\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\lwip\lwip\src\include\&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}\components\mqtt\esp-mqtt\include&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.2061916291" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
@@ -80,7 +80,11 @@
 		<project id="ESP_Dashboard.null.136475108" name="ESP_Dashboard"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Default">
+			<resource resourceType="PROJECT" workspacePath="/ESP_Dashboard"/>
+		</configuration>
+	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.896301934;cdt.managedbuild.toolchain.gnu.cross.base.896301934.1508736108;cdt.managedbuild.tool.gnu.cross.cpp.compiler.95373839;cdt.managedbuild.tool.gnu.cpp.compiler.input.1757767740">

@@ -30,7 +30,6 @@ rs232Handler.o: \
  C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/heap/include/esp_heap_caps.h \
  C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/esp_common/include/esp_err.h \
  C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/heap/port/esp8266/include/esp_heap_config.h \
- C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/freertos/include/freertos/private/projdefs.h \
  C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/freertos/include/freertos/task.h \
  C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/freertos/include/freertos/private/list.h \
  C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/freertos/include/freertos/queue.h \
@@ -97,8 +96,6 @@ C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/heap/include/esp_heap_caps
 C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/esp_common/include/esp_err.h:
 
 C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/heap/port/esp8266/include/esp_heap_config.h:
-
-C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/freertos/include/freertos/private/projdefs.h:
 
 C:/msys32/home/Ricker/esp/ESP8266_RTOS_SDK/components/freertos/include/freertos/task.h:
 

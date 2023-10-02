@@ -39,8 +39,7 @@ char vfdDimming=0x08;
 uint8_t latchTrigger=0;
 uint8_t gaugeCSTrigger=0;
 uint8_t vfdLatchTrigger=0;
-
-static uint8_t spi_dc_level = 0;
+void pulseVLatch_NotCLKEN(uint8_t level);
 
 static const char *TAG="handleSig";
 
@@ -54,29 +53,11 @@ void init_GPIO(void){
     gpio_config(&io_conf);						//configure GPIO with the given settings
 	gpio_set_level(LATCH_PIN, 0);
 	gpio_set_level(GAUGE_CS_PIN, 0);
-	
-    io_conf.intr_type = GPIO_INTR_DISABLE;
-    io_conf.mode = GPIO_MODE_OUTPUT;
-    io_conf.pin_bit_mask = OLED_PIN_SEL;
-    io_conf.pull_down_en = 0;
-    io_conf.pull_up_en = 1;
-    gpio_config(&io_conf);
-    gpio_set_level(OLED_RST_GPIO, 1);
 }
 
 esp_err_t spi_delay_us(uint32_t time)
 {
     vTaskDelay(time / portTICK_RATE_MS /1000);
-    return ESP_OK;
-}
-
-uint8_t getDCLevel(void){
-	return spi_dc_level=0;
-}
-
-static esp_err_t spi_set_dc(uint8_t dc)
-{
-    spi_dc_level = dc;
     return ESP_OK;
 }
 
@@ -93,7 +74,6 @@ static esp_err_t spi_write_cmd(uint16_t bits, uint8_t cmdBits)
     trans.bits.cmd=cmdBits;
     trans.mosi = buf;
     trans.bits.mosi = bits;
-    spi_set_dc(0);
     spi_trans(HSPI_HOST, &trans);
     return ESP_OK;
 }
@@ -127,6 +107,7 @@ void senddispToVFD(void){
 	datachar[7]=vfdString[7];
 
 	spi_write_cmd(64,2);
+	pulseVLatch_NotCLKEN(1);
 	vfdLatchTrigger=2;
 }
 
@@ -138,10 +119,8 @@ void pulseLLatch(){
 }
 
 //Pulse for VFD data
-void pulseVLatch(){
-	gpio_set_level(VFD_LATCH_PIN, 1);
-	spi_delay_us(5);
-	gpio_set_level(VFD_LATCH_PIN, 0);
+void pulseVLatch_NotCLKEN(uint8_t level){
+	gpio_set_level(VFD_LATCH_CLKEN_PIN, level);
 }
 
 //Put the Gauge chip select pin where it needs to be
@@ -165,7 +144,7 @@ void checkForCSLatchTrigger(void){
 	}else if(vfdLatchTrigger>0){
 		vfdLatchTrigger--;
 		if(vfdLatchTrigger==0){
-			pulseVLatch();
+			pulseVLatch_NotCLKEN(1);
 		}
 	}
 }
