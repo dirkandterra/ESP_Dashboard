@@ -1,22 +1,23 @@
-# _SPI OLED Example_  
+# _ESP_Dashboard_  
 
-_This example uses the ESP8266 hspi Master to drive 0.96-inch SPI OLED, and the OLED driver chip is SSD1306._
+_This project uses the ESP8266 hspi Master to drive a 2004 Dodge Intrepid Dashboard._
 
-## How to use example  
+## How to use  
 
 ### Hardware Required  
-
+* 2004 Dodge Intrepid Instrument Panel
 * Connection:  
 
-| Signal    | Oled   | ESP8266|
-|-----------|--------|--------|
-| 3.3V      | VCC    | VCC    |
-| SCLK      | D0(SCL)| GPIO14 |
-| D/C       | DC     | GPIO12 |
-| MOSI      | D1(SDA)| GPIO13 |
-| RST       | RES    | GPIO15 |
-| CS        | CS     | GND    |
-| GND       | GND    | GND    |
+| Signal    | Intrepid  |ESP8266|
+|-----------|-----------|-------|
+| 3.3V      | NC		| VCC	|
+| SCLK      | D0(SCL)   | GPIO14|
+| VFDCLK	| VFDCLK	| Trans	| 
+| MOSI      | VFD/GLDATA| GPIO13|
+| Gauge CS  | Gauge CS  | GPIO16|
+| Light Pls | Light Pls | GPIO12|
+| VFD Pls	| VFD Pls	| GPIO02|
+| GND       | GND       | GND   |
 
 ### Configure the project  
 
@@ -51,7 +52,6 @@ I (251) spi_oled: init hspi
 I (257) spi_oled: init oled
 ```
 
-* WAVE FORM:  
+* Intrepid Schematic (Not Complete):  
 
-  ![wave](wave.png)  
-"# ESP_Dashboard" 
+  ![IntrepidSchematic](IntrepidSchematic.png)  
