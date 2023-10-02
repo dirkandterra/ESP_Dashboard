@@ -2,6 +2,8 @@
 
 _This project uses the ESP8266 hspi Master to drive a 2004 Dodge Intrepid Dashboard._
 
+![IntrepidSchematic](ESPCluster.png)  
+
 ## How to use  
 
 ### Hardware Required  
