@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include "esp_attr.h"
 #include "esp_err.h"
-
+#define CONFIG_LOG_DEFAULT_LEVEL 3
 #define LATCH_PIN 12
 #define GAUGE_CS_PIN 16
 #define VFD_LATCH_CLKEN_PIN 2

@@ -38,12 +38,12 @@ static const char *TAG = "uart_events";
 #define RD_BUF_SIZE (BUF_SIZE)
 static QueueHandle_t uart0_queue;
 static uint8_t commandBuffPtr=0;
-static uint8_t commandLen=0;
 
+uint8_t CommandLen=0;
 uint8_t SPIDEBUG=0;
 
 void charDecoder(){
-	if(commandLen<2){
+	if(CommandLen<2){
 		switch(CommandBuff[0]){
 		case 's':
 			SPIDEBUG=!SPIDEBUG;
@@ -52,6 +52,12 @@ void charDecoder(){
 			}else{
 				uart_write_bytes(EX_UART_NUM, "SPI Debug: Off\r\n", 16);
 			}
+			break;
+		case '5':
+			uart_write_bytes(EX_UART_NUM, "Half on Gauges\r\n", 15);
+			break;
+		case '0':
+			uart_write_bytes(EX_UART_NUM, "Zero on Gauges\r\n", 15);
 			break;
 		default:
 			uart_write_bytes(EX_UART_NUM, (const char *) CommandBuff, 1);
@@ -81,7 +87,7 @@ void uart_event_task(void *pvParameters)
                     for(ii=0;ii<event.size;ii++){
                     	if(dtmp[ii]=='\r'){
                     		commandBuffPtr=0;
-                    		commandLen=strlen(CommandBuff);
+                    		CommandLen=strlen(CommandBuff);
                     		//ESP_LOGI(TAG, "[Command]:");
                     		charDecoder();
                     	}else if(dtmp[ii]=='\n'){

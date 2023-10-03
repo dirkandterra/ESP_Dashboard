@@ -10,6 +10,7 @@
 #include <stdint.h>
 
 char CommandBuff[20];
+extern uint8_t CommandLen;
 
 extern uint8_t SPIDEBUG;
 

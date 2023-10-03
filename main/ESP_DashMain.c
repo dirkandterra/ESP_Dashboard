@@ -6,7 +6,6 @@
    software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
    CONDITIONS OF ANY KIND, either express or implied.
 */
-#define CONFIG_LOG_DEFAULT_LEVEL 3
 #include <stdio.h>
 #include <stdlib.h>
 #include "sdkconfig.h"
@@ -29,6 +28,7 @@
 #include "rs232Handler.h"
 
 static const char *TAG = "ESP_Dash";
+uint8_t bootDelay=60;
 
 #define SPI_MOSIONLY_INTERFACE   0x040    /* CS_EN:0, MISO_EN:0, MOSI_EN:1, BYTE_TX_ORDER:0, BYTE_TX_ORDER:0, BIT_RX_ORDER:0, BIT_TX_ORDER:0, CPHA:0, CPOL:0 */
 
@@ -53,10 +53,18 @@ static void IRAM_ATTR spi_event_callback(int event, void *arg)
     }
 }
 
+void maxDashboard(void){
+	  sendInfo(G_Gas,100);
+	  sendInfo(G_RPM, 700);
+	  sendInfo(G_MPH, 1200);
+	  sendInfo(G_Temp, 100);
+	  sendInfo(G_Lights,2047);
+}
+
 void resetDashboard(void){
 	ESP_LOGI(TAG, "Clear Dashboard");
-    clearDisp();
-    updateVFD();
+    //clearDisp();
+    //updateVFD();
     sendInfo(G_Gas,0);
     sendInfo(G_RPM,0);
     sendInfo(G_MPH,0);
@@ -68,12 +76,36 @@ static void IRAM_ATTR dash_periodic_task(void* arg)
 {
 	int x=0;
 	while (1) {
-		sendInfo(0, 200);
-		sendInfo(1, 500);
-		sendInfo(4, 0xCC);
-		if(SPIDEBUG){ESP_LOGI(TAG, "sent %d", x);}
+		//Clear display after boot-test
+		if(bootDelay>0){
+			bootDelay--;
+			if(bootDelay==0){
+				resetDashboard();
+			}
+		}
+		if(CommandLen>0){
+			switch (CommandBuff[0]){
+			default:
+			case 0:
+				break;
+			case '5':
+				sendInfo(G_Gas,50);
+				sendInfo(G_RPM, 350);
+				sendInfo(G_MPH, 600);
+				sendInfo(G_Temp, 50);
+				break;
+			case '0':
+				sendInfo(G_Gas,0);
+				sendInfo(G_RPM,0);
+				sendInfo(G_MPH,0);
+				sendInfo(G_Temp,0);
+				break;
+			}
+			CommandLen=0;
+		}
+		if(bootDelay>0 && (bootDelay%5==0)){ESP_LOGI(TAG, "sent %d", bootDelay);}
 		//sendVFDDimming();
-		vTaskDelay(1000 / portTICK_RATE_MS);
+		vTaskDelay(50 / portTICK_RATE_MS);
 		updateGuages_Lights();
 		x++;
 	}
@@ -106,6 +138,7 @@ void app_main(void)
 
     //ESP_LOGI(TAG, "init clear");
     //resetDashboard();
+    maxDashboard();
     rs232Init();
 
     // Create a task to handler UART event from ISR
